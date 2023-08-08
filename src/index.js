@@ -1,23 +1,27 @@
 let currentPlayer = 'blue';
+numberOfColumns = 7;
+numberOfRows = 6;
+winCondition = 4;
 
 function gameBoard() {
     const container = document.getElementById("container");
     const tbl = document.createElement('table');
     tbl.classList.add("table");
     for (let i = 0; i < 6; ++i) {
-     const tr = tbl.insertRow();
-        for (let j = 0; j < 7; ++j) {
-          const td = tr.insertCell();
-          td.style.border = '1px solid black';
-          td.setAttribute('dataRow', i);
-          td.setAttribute('dataColumn', j);
-          if (i === 0) {
-          td.style.cursor = "pointer";
-          td.setAttribute('onclick', 'addPiece('+j+')');
-          }
-        }
+		const tr = tbl.insertRow();
+		for (let j = 0; j < 7; ++j) {
+			const td = tr.insertCell();
+			td.style.border = '1px solid black';
+			td.setAttribute('dataRow', i);
+			td.setAttribute('dataColumn', j);
+			if (i === 0) {
+				td.style.cursor = "pointer";
+				td.setAttribute('onclick', 'addPiece('+j+')');
+			}
+		}
     }
-  container.appendChild(tbl);
+
+    container.appendChild(tbl);
 }
 
 gameBoard();
@@ -34,18 +38,18 @@ function addPiece(columnNumber) {
     }
   let win = checkWin();
   if (success) {
-    if (win === 'blue' || win === 'red') {
-      displayMessage(currentPlayer + ' wins!');
-    } else if (win === 'tie') {
-      displayMessage("It's a tie!");
-    } else {
-      if(currentPlayer === 'blue') {
-        currentPlayer = 'red';
-      } else {
-        currentPlayer = 'blue';
-      }
+     if (win === 'blue' || win === 'red') {
+        displayMessage(currentPlayer + ' wins!');
+     } else if (win === 'tie') {
+        displayMessage("It's a tie!");
+     } else {
+        if (currentPlayer === 'blue') {
+           currentPlayer = 'red';
+        } else {
+           currentPlayer = 'blue';
+        }
 
-    }
+     }
   }
 }
 
@@ -64,38 +68,38 @@ function getDataValue(column, row) {
 }
 
 function checkWin() {
-    const directions = [
-        [0, 1],
-        [1, 0],
-        [1, 1],
-        [-1, 1],
-    ];
+   const directions = [
+      [0, 1],
+      [1, 0],
+      [1, 1],
+      [-1, 1],
+   ];
 
   for (const [dx, dy] of directions) {
-    for (let column = 0; column < 7; column++) {
-      for (let row = 0; row < 6; row++) {
-        const startValue = getDataValue(column, row);
-        if (startValue !== null) {
-          let winCount = 1;
-          for (let i = 1; i < 4; i++) {
-            const nextColumn = column + i * dx;
-            const nextRow = row + i * dy;
-            const nextValue = getDataValue(nextColumn, nextRow);
-            if (nextValue === startValue) {
-              winCount++;
-            } else {
-              break;
+     for (let column = 0; column < numberOfColumns; column++) {
+        for (let row = 0; row < numberOfRows; row++) {
+            const startValue = getDataValue(column, row);
+            if (startValue !== null) {
+                let winCount = 1;
+              for (let i = 1; i < winCondition; i++) {
+                    const nextColumn = column + i * dx;
+                    const nextRow = row + i * dy;
+                    const nextValue = getDataValue(nextColumn, nextRow);
+                    if (nextValue === startValue) {
+                        winCount++;
+                    } else {
+                        break;
+                    }
+              }
+              if (winCount === winCondition) {
+                 return currentPlayer;
+              }
             }
-          }
-          if (winCount === 4) {
-            return currentPlayer;
-          }
         }
-      }
-    }
+     }
   }
-  if (document.querySelectorAll('[data-value]').length === 42) {
-    return 'tie';
+  if (document.querySelectorAll('[data-value]').length === numberOfRows * numberOfColumns) {
+     return 'tie';
   }
   return null;
 }
