@@ -1,0 +1,47 @@
+.table {
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: auto;
+  width: 500px;
+  border: 2px solid black;
+  height: 500px;
+  align-items: center;
+}
+
+.table tr td {
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  border-radius: 50%;
+}
+
+td[data-value= "blue"] {
+  background-color: blue;
+}
+
+td[data-value= "red"] {
+  background-color: red;
+}
+
+#restart-button {
+  background-color: orange;
+  color: black;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  font-size: 30px;
+  border-radius: 5px;
+}
+
+#restart-button:hover {
+  background-color: blue;
+}
+
+#message-container {
+  margin-top: 20px;
+  font-size: 30px;
+  text-align: center;
+  color: #333;
+  font-weight: bold;
+}
