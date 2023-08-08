@@ -31,9 +31,9 @@ function addPiece(columnNumber) {
     let checkCells = document.querySelectorAll('[dataColumn="' + columnNumber + '"]');
     for(let i = checkCells.length - 1; i >= 0; --i) {
         if (!checkCells[i].hasAttribute('data-value')) {
-        checkCells[i].setAttribute('data-value', currentPlayer);
-        success = true;
-        break;
+            checkCells[i].setAttribute('data-value', currentPlayer);
+            success = true;
+            break;
         }
     }
   let win = checkWin();
