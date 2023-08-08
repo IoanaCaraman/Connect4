@@ -1,37 +1,37 @@
 let currentPlayer = 'blue';
 
 function gameBoard() {
-  const container = document.getElementById("container");
-  const tbl = document.createElement('table');
-  tbl.classList.add("table");
-  for (let i = 0; i < 6; i++) {
-    const tr = tbl.insertRow();
-    for (let j = 0; j < 7; j++) {
-      const td = tr.insertCell();
-      td.style.border = '1px solid black';
-      td.setAttribute('dataRow', i);
-      td.setAttribute('dataColumn', j);
-      if (i === 0) {
-        td.style.cursor = "pointer";
-        td.setAttribute('onclick', 'addPiece('+j+')');
-      }
+    const container = document.getElementById("container");
+    const tbl = document.createElement('table');
+    tbl.classList.add("table");
+    for (let i = 0; i < 6; ++i) {
+     const tr = tbl.insertRow();
+        for (let j = 0; j < 7; ++j) {
+          const td = tr.insertCell();
+          td.style.border = '1px solid black';
+          td.setAttribute('dataRow', i);
+          td.setAttribute('dataColumn', j);
+          if (i === 0) {
+          td.style.cursor = "pointer";
+          td.setAttribute('onclick', 'addPiece('+j+')');
+          }
+        }
     }
-  }
   container.appendChild(tbl);
 }
 
 gameBoard();
 
 function addPiece(columnNumber) {
-  let success = false;
-  let checkCells = document.querySelectorAll('[dataColumn="' + columnNumber + '"]');
-  for(let i = checkCells.length - 1; i >= 0; --i) {
-    if (!checkCells[i].hasAttribute('data-value')) {
-      checkCells[i].setAttribute('data-value', currentPlayer);
-      success = true;
-      break;
+    let success = false;
+    let checkCells = document.querySelectorAll('[dataColumn="' + columnNumber + '"]');
+    for(let i = checkCells.length - 1; i >= 0; --i) {
+        if (!checkCells[i].hasAttribute('data-value')) {
+        checkCells[i].setAttribute('data-value', currentPlayer);
+        success = true;
+        break;
+        }
     }
-  }
   let win = checkWin();
   if (success) {
     if (win === 'blue' || win === 'red') {
@@ -50,26 +50,26 @@ function addPiece(columnNumber) {
 }
 
 function displayMessage(message) {
-  const messageContainer = document.getElementById("message-container");
-  messageContainer.textContent = message;
+    const messageContainer = document.getElementById("message-container");
+    messageContainer.textContent = message;
 }
 
 function getTile(column, row) {
-  return document.querySelector('[dataColumn="'+column+'"][dataRow="'+row+'"]');
+    return document.querySelector('[dataColumn="'+column+'"][dataRow="'+row+'"]');
 }
 
 function getDataValue(column, row) {
-  const tile = getTile(column, row);
-  return tile ? tile.getAttribute('data-value') : null;
+    const tile = getTile(column, row);
+    return tile ? tile.getAttribute('data-value') : null;
 }
 
 function checkWin() {
-  const directions = [
-    [0, 1],
-    [1, 0],
-    [1, 1],
-    [-1, 1],
-  ];
+    const directions = [
+        [0, 1],
+        [1, 0],
+        [1, 1],
+        [-1, 1],
+    ];
 
   for (const [dx, dy] of directions) {
     for (let column = 0; column < 7; column++) {
@@ -104,9 +104,9 @@ const restartButton = document.getElementById("restart-button");
 restartButton.addEventListener("click", restartGame);
 
 function restartGame() {
-  const tiles = document.querySelectorAll('[data-value]');
-  tiles.forEach(tile => tile.removeAttribute('data-value'));
-  const messageContainer = document.getElementById("message-container");
-  messageContainer.textContent = "";
-  currentPlayer = 'blue';
+    const tiles = document.querySelectorAll('[data-value]');
+    tiles.forEach(tile => tile.removeAttribute('data-value'));
+    const messageContainer = document.getElementById("message-container");
+    messageContainer.textContent = "";
+    currentPlayer = 'blue';
 }
