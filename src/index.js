@@ -7,9 +7,9 @@ function gameBoard() {
     const container = document.getElementById("container");
     const tbl = document.createElement('table');
     tbl.classList.add("table");
-    for (let i = 0; i < 6; ++i) {
+    for (let i = 0; i < numberOfRows; ++i) {
 		const tr = tbl.insertRow();
-		for (let j = 0; j < 7; ++j) {
+		for (let j = 0; j < numberOfColumns; ++j) {
 			const td = tr.insertCell();
 			td.style.border = '1px solid black';
 			td.setAttribute('dataRow', i);
